@@ -140,7 +140,7 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        // checks if the ideas array is full, if so, throws an error, if not, saves the idea to the ideas file
         if(submitted > 9){
         
             JOptionPane.showMessageDialog(null, "Error: Ideas stack full, please try again later");

@@ -184,6 +184,8 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void ideaSubmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ideaSubmissionActionPerformed
         // TODO add your handling code here:
+        
+        //like the projectqueue button, checks if the user is logged in or not and opens a different page depending on login status
         if(admin){
             
             ReviewIdeasGUI reviewideas = new ReviewIdeasGUI();

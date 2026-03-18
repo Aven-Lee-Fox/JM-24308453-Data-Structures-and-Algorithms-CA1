@@ -187,7 +187,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        // deletes the proposed idea
         delete();
         saveIdea();
         ideaStackNext();
@@ -196,7 +196,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
 
     private void ViewNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewNextActionPerformed
         // TODO add your handling code here:
-        
+        //should call the next newest idea from the array
         for(int i = 0; i <=9; i++){
         
             System.out.println(idea[i]);
@@ -207,7 +207,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code
-                    
+                    //should send the proposed idea to the projects file, save that file, then delete the idea from the ideas array
                     if(aproveint <20){
                         
                     approved[aproveint] = new Projects(idea[ideaToView].title, idea[ideaToView].desc, idea[ideaToView].area, Integer.parseInt(jTextField3.getText()), Integer.parseInt(jTextField4.getText()));
@@ -250,7 +250,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     }
     
     public void saveIdea(){
-    
+    //saves the array of submitted ideas
         try{
         
             FileOutputStream fos = new FileOutputStream("Ideas.dat");
@@ -271,7 +271,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     }
     
     public void load(){
-    
+    //should read the submitted ideas from the file and load them into the array
         try{
             
             FileInputStream fis = new FileInputStream("Ideas.dat");
@@ -302,7 +302,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     }
     
     public void delete(){
-    
+    //this should delete all values from the array of objects, save the array to the file, then get the next newest object from the array
         idea[ideaToView] = new Ideas(null, null, null);
         ideaToView = ideaToView - 1;
         saveIdea();
@@ -311,7 +311,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     }
     
     public void saveProject(){
-    
+    //this should save an approved project to the projects file
         try{
         
             FileOutputStream fos = new FileOutputStream("Projects.dat");
@@ -332,6 +332,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     }
     
     public void ideaStackNext(){
+        //this should call the load method then display the newest submitted idea.
         load();
     
         do{
