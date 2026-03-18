@@ -10,9 +10,7 @@ package com.josephmoiselle.jm.dsa.ca1.app;
  */
 public class MainGUI extends javax.swing.JFrame {
     
-    loginStatus login = new loginStatus();
-    
-    boolean admin = login.getStatus(); 
+    boolean admin = false;
      
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainGUI.class.getName());
 
@@ -21,16 +19,7 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         initComponents();
-    
-        if(admin){
         
-            Login.setText("Log out");
-            
-          }else{
-        
-            Login.setText("Log in");
-            
-        }
     }
 
     /**
@@ -44,9 +33,10 @@ public class MainGUI extends javax.swing.JFrame {
 
         Queue = new javax.swing.JButton();
         ViewByLocation = new javax.swing.JButton();
-        Submit = new javax.swing.JButton();
+        ideaSubmission = new javax.swing.JButton();
         Login = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
+        loginstatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -59,8 +49,18 @@ public class MainGUI extends javax.swing.JFrame {
         });
 
         ViewByLocation.setText("View by Location");
+        ViewByLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewByLocationActionPerformed(evt);
+            }
+        });
 
-        Submit.setText("Submit an Idea");
+        ideaSubmission.setText("Submit an idea");
+        ideaSubmission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ideaSubmissionActionPerformed(evt);
+            }
+        });
 
         Login.setText("Log in");
         Login.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +76,8 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        loginstatus.setText("Logged out");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,18 +85,23 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(133, 133, 133)
+                                .addComponent(Exit))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(loginstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(171, 171, 171)))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 84, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Queue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ViewByLocation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Submit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(90, 90, 90))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Login)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Exit)
-                        .addContainerGap())))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ideaSubmission, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Queue, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ViewByLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,8 +111,10 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(ViewByLocation)
                 .addGap(18, 18, 18)
-                .addComponent(Submit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(ideaSubmission)
+                .addGap(38, 38, 38)
+                .addComponent(loginstatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Exit)
                     .addComponent(Login))
@@ -141,11 +150,10 @@ public class MainGUI extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         
-        admin = login.getStatus();
-        
         if(admin){
         
             admin = false;
+            
             
         }else{
             
@@ -153,19 +161,47 @@ public class MainGUI extends javax.swing.JFrame {
             
         }
         
-        login.setStatus(admin);
-        
         
         if(admin){
         
             Login.setText("Log out");
+            loginstatus.setText("Logged in");
+            ideaSubmission.setText("Review submissions");
+            
             
         }else{
         
             Login.setText("Log in");
+            loginstatus.setText("Logged out");
+            ideaSubmission.setText("Submit an idea");
+            
             
         }
     }//GEN-LAST:event_LoginActionPerformed
+
+    private void ideaSubmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ideaSubmissionActionPerformed
+        // TODO add your handling code here:
+        if(admin){
+            
+            ReviewIdeasGUI reviewideas = new ReviewIdeasGUI();
+            reviewideas.setVisible(true);
+            dispose();
+        
+        }else{
+        
+            SubmitIdeaGUI submission = new SubmitIdeaGUI();
+            submission.setVisible(true);
+            dispose();
+            
+        }
+    }//GEN-LAST:event_ideaSubmissionActionPerformed
+
+    private void ViewByLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewByLocationActionPerformed
+        // TODO add your handling code here:
+        ViewProjectsGUI viewprojects = new ViewProjectsGUI();
+        viewprojects.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ViewByLocationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,7 +232,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JButton Exit;
     private javax.swing.JButton Login;
     private javax.swing.JButton Queue;
-    private javax.swing.JButton Submit;
     private javax.swing.JButton ViewByLocation;
+    private javax.swing.JButton ideaSubmission;
+    private javax.swing.JLabel loginstatus;
     // End of variables declaration//GEN-END:variables
 }

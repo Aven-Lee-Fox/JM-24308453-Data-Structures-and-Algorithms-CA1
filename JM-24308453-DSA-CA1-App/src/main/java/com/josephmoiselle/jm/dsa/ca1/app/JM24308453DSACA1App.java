@@ -13,7 +13,6 @@ public class JM24308453DSACA1App {
     public static void main(String[] args) {
         MainGUI MainPage = new MainGUI();
         MainPage.setVisible(true);
-        boolean admin = false;
         
     }
     
