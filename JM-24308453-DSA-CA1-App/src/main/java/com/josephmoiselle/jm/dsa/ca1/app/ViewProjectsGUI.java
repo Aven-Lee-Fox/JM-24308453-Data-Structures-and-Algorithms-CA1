@@ -4,6 +4,14 @@
  */
 package com.josephmoiselle.jm.dsa.ca1.app;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joseph Moiselle 24308453
@@ -11,6 +19,8 @@ package com.josephmoiselle.jm.dsa.ca1.app;
 public class ViewProjectsGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ViewProjectsGUI.class.getName());
+    
+    Ideas[] idea = new Ideas[10];
 
     /**
      * Creates new form ViewProjectsGUI
@@ -99,6 +109,52 @@ public class ViewProjectsGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new ViewProjectsGUI().setVisible(true));
+    }
+    
+    public void save(){
+    
+        try{
+        
+            FileOutputStream fos = new FileOutputStream("Ideas.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(idea);
+            oos.close();
+            
+        } catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+    }
+    
+    public void load(){
+    
+        try{
+            
+            FileInputStream fis = new FileInputStream("Ideas.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Ideas[] idea = (Ideas[]) ois.readObject();
+            ois.close();
+        
+        }catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }catch(ClassNotFoundException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

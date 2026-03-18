@@ -4,6 +4,14 @@
  */
 package com.josephmoiselle.jm.dsa.ca1.app;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joseph Moiselle 24308453
@@ -11,6 +19,9 @@ package com.josephmoiselle.jm.dsa.ca1.app;
 public class ReviewIdeasGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReviewIdeasGUI.class.getName());
+    
+    Ideas[] idea = new Ideas[10];
+    int ideaToView;
 
     /**
      * Creates new form ReviewIdeasGUI
@@ -40,6 +51,9 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        ViewNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +91,17 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
             }
         });
 
+        jTextField5.setText("jTextField4");
+
+        jLabel5.setText("Area:");
+
+        ViewNext.setText("View Next");
+        ViewNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ViewNextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,9 +111,11 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Back))
@@ -98,14 +125,15 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
                     .addComponent(jTextField4)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(81, 81, 81)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
-                        .addGap(47, 47, 47)))
+                        .addGap(18, 18, 18)
+                        .addComponent(ViewNext, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -124,11 +152,20 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(Back)
-                .addContainerGap())
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ViewNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Back)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))))
         );
 
         pack();
@@ -143,7 +180,22 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        idea[ideaToView] = new Ideas(null, null, null);
+        ideaStackNext();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void ViewNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewNextActionPerformed
+        // TODO add your handling code here:
+        
+        for(int i = 0; i <=9; i++){
+        
+            System.out.println(idea[i]);
+        
+        }
+        ideaStackNext();
+    }//GEN-LAST:event_ViewNextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,20 +220,93 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new ReviewIdeasGUI().setVisible(true));
+        
+    }
+    
+    public void save(){
+    
+        try{
+        
+            FileOutputStream fos = new FileOutputStream("Ideas.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(idea);
+            oos.close();
+            
+        } catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+    }
+    
+    public void load(){
+    
+        try{
+            
+            FileInputStream fis = new FileInputStream("Ideas.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Ideas[] file = (Ideas[]) ois.readObject();
+            ois.close();
+            
+            for(int i = 0; i <=9; i++){
+            
+            idea[i] = file[i];
+            
+        }
+        
+        }catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }catch(ClassNotFoundException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
+    }
+    
+    public void ideaStackNext(){
+        load();
+        ideaToView = 9;
+    
+        do{
+            
+            ideaToView --;
+          
+        }while(idea[ideaToView] == null);
+        
+        jTextField2.setText(idea[ideaToView].title);
+        jTextArea1.setText(idea[ideaToView].desc);
+        jTextField4.setText(idea[ideaToView].area);
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
+    private javax.swing.JButton ViewNext;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

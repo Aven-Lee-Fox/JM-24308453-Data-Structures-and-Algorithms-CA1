@@ -4,11 +4,17 @@
  */
 package com.josephmoiselle.jm.dsa.ca1.app;
 
+import java.io.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joseph Moiselle 24308453
  */
 public class SubmitIdeaGUI extends javax.swing.JFrame {
+    
+    int submitted;
+    Ideas[] idea = new Ideas[10];
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SubmitIdeaGUI.class.getName());
 
@@ -17,6 +23,8 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
      */
     public SubmitIdeaGUI() {
         initComponents();
+        
+        
     }
 
     /**
@@ -48,8 +56,6 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setText("jTextField2");
-
         jLabel1.setText("Title:");
 
         jLabel2.setText("Description:");
@@ -59,10 +65,15 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Location:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grand Canal Dock", "The Point", "Mayor Square", "IFSC" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +138,31 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_BackActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        if(submitted > 9){
+        
+            JOptionPane.showMessageDialog(null, "Error: Ideas stack full, please try again later");
+            
+        }else{
+        
+            do{
+                
+           submitted ++;
+                
+            } while(idea[submitted] != null);
+            
+            if (idea[submitted] == null){
+            idea[submitted] = new Ideas(jTextField2.getText(), jTextArea1.getText(), jComboBox1.getSelectedItem().toString());
+            submitted ++;
+            }
+            
+            save();
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -150,6 +186,54 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new SubmitIdeaGUI().setVisible(true));
+        
+        load();
+    }
+    
+    public void save(){
+    
+        try{
+        
+            FileOutputStream fos = new FileOutputStream("Ideas.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(idea);
+            oos.close();
+            
+        } catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+    }
+    
+    public static void load(){
+    
+        try{
+            
+            FileInputStream fis = new FileInputStream("Ideas.dat");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Ideas[] idea = (Ideas[]) ois.readObject();
+            ois.close();
+        
+        }catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }catch(ClassNotFoundException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
