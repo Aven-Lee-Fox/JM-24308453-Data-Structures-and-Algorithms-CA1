@@ -126,6 +126,8 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void QueueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QueueActionPerformed
         // TODO add your handling code here:
+        
+        //checks if the user is "logged in" and if so, displays a different page
         if(admin){
         
             ProjectQueueAdminGUI adminQueue = new ProjectQueueAdminGUI();
@@ -150,6 +152,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         
+        // checks if the user is logged in and if so, logs them out, if not logs them in
         if(admin){
         
             admin = false;
@@ -161,7 +164,7 @@ public class MainGUI extends javax.swing.JFrame {
             
         }
         
-        
+        // updates the text of buttons on the page depending on if the user is logged in or not
         if(admin){
         
             Login.setText("Log out");
