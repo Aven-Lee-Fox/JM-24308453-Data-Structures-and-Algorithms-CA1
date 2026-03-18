@@ -191,10 +191,13 @@ public class SubmitIdeaGUI extends javax.swing.JFrame {
     }
     
     public void save(){
+        for(int i= 0; i <=9; i++){
+            System.out.println(idea[i]);
+        }
     
         try{
         
-            FileOutputStream fos = new FileOutputStream("Ideas.ser");
+            FileOutputStream fos = new FileOutputStream("Ideas.dat");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(idea);
             oos.close();

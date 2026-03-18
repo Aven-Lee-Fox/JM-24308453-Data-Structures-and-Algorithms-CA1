@@ -12,4 +12,51 @@ import java.io.Serializable;
  */
 public class Projects implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
+    String title;
+    String desc;
+    String area;
+    int budget;
+    int timeframe;
+    
+    public Projects(String title, String desc, String area, int budget, int timeframe){
+    
+        this.title = title;
+        this.desc = desc;
+        this.area = area;
+        this.budget = budget;
+        this.timeframe = timeframe;
+    }
+    
+    public String getTitle(){
+    
+        return title;
+        
+    }
+    
+    public String getDesc(){
+    
+        return desc;
+        
+    }
+    
+    public String getArea(){
+    
+        return area;
+        
+    }
+    
+    public int getBudget(){
+    
+        return budget;
+        
+    }
+    
+    public int getTimeframe(){
+    
+        return timeframe;
+        
+    }
+    
 }

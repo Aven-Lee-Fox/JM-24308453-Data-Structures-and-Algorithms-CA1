@@ -21,7 +21,9 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReviewIdeasGUI.class.getName());
     
     Ideas[] idea = new Ideas[10];
-    int ideaToView;
+    Projects[] approved = new Projects[20];
+    int ideaToView = 9;
+    int aproveint;
 
     /**
      * Creates new form ReviewIdeasGUI
@@ -83,6 +85,11 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
         jLabel1.setText("Title:");
 
         jButton1.setText("Accept");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Reject");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +188,8 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        idea[ideaToView] = new Ideas(null, null, null);
+        delete();
+        saveIdea();
         ideaStackNext();
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -196,6 +204,24 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
         }
         ideaStackNext();
     }//GEN-LAST:event_ViewNextActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code
+                    
+                    if(aproveint <20){
+                        
+                    approved[aproveint] = new Projects(idea[ideaToView].title, idea[ideaToView].desc, idea[ideaToView].area, Integer.parseInt(jTextField3.getText()), Integer.parseInt(jTextField4.getText()));
+                   
+                    } else{
+                    
+                        JOptionPane.showMessageDialog(null, "Error: Queue Full");
+                        
+                    }
+                    
+                    saveProject();
+                    delete();
+                    
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,7 +249,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
         
     }
     
-    public void save(){
+    public void saveIdea(){
     
         try{
         
@@ -248,7 +274,7 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     
         try{
             
-            FileInputStream fis = new FileInputStream("Ideas.ser");
+            FileInputStream fis = new FileInputStream("Ideas.dat");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Ideas[] file = (Ideas[]) ois.readObject();
             ois.close();
@@ -275,19 +301,48 @@ public class ReviewIdeasGUI extends javax.swing.JFrame {
     
     }
     
+    public void delete(){
+    
+        idea[ideaToView] = new Ideas(null, null, null);
+        ideaToView = ideaToView - 1;
+        saveIdea();
+        ideaStackNext();
+    
+    }
+    
+    public void saveProject(){
+    
+        try{
+        
+            FileOutputStream fos = new FileOutputStream("Projects.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(approved);
+            oos.close();
+            
+        } catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+    }
+    
     public void ideaStackNext(){
         load();
-        ideaToView = 9;
     
         do{
-            
+        
             ideaToView --;
-          
-        }while(idea[ideaToView] == null);
+            
+        }while(idea[ideaToView] == null && ideaToView > 0);
         
         jTextField2.setText(idea[ideaToView].title);
         jTextArea1.setText(idea[ideaToView].desc);
-        jTextField4.setText(idea[ideaToView].area);
+        jTextField5.setText(idea[ideaToView].area);
         
         
     }

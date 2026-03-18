@@ -4,6 +4,12 @@
  */
 package com.josephmoiselle.jm.dsa.ca1.app;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joseph Moiselle 24308453
@@ -11,12 +17,15 @@ package com.josephmoiselle.jm.dsa.ca1.app;
 public class ProjectQueueGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProjectQueueGUI.class.getName());
+    
+    Projects[] project = new Projects[20];
 
     /**
      * Creates new form ProjectQueueGUI
      */
     public ProjectQueueGUI() {
         initComponents();
+        load();
     }
 
     /**
@@ -128,6 +137,60 @@ public class ProjectQueueGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new ProjectQueueGUI().setVisible(true));
+    }
+    
+    public void load(){
+    
+        try{
+            
+            FileInputStream fis = new FileInputStream("Projects.dat");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Projects[] file = (Projects[]) ois.readObject();
+            ois.close();
+            
+            for(int i = 0; i <=9; i++){
+            
+            project[i] = file[i];
+            
+        }
+        
+        }catch(FileNotFoundException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        
+        }catch(IOException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }catch(ClassNotFoundException e){
+        
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+        String Queue = "1. Title:"+ project[0].title+ "\nDescription: "+project[0].desc+ "\nArea: "+project[0].area+ "\nBudget: "+project[0].budget+ "\nTimeframe:"+project[0].timeframe +
+                "\n2. Title:"+ project[1].title+ "\nDescription: "+project[1].desc+ "\nArea: "+project[1].area+ "\nBudget: "+project[1].budget+ "\nTimeframe:"+project[1].timeframe+ 
+                "\n3. Title:"+ project[2].title+ "\nDescription: "+project[2].desc+ "\nArea: "+project[2].area+ "\nBudget: "+project[2].budget+ "\nTimeframe:"+project[2].timeframe+ 
+                "\n4. Title:"+ project[3].title+ "\nDescription: "+project[3].desc+ "\nArea: "+project[3].area+ "\nBudget: "+project[3].budget+ "\nTimeframe:"+project[3].timeframe+
+                "\n5. Title:"+ project[4].title+ "\nDescription: "+project[4].desc+ "\nArea: "+project[4].area+ "\nBudget: "+project[4].budget+ "\nTimeframe:"+project[4].timeframe+
+                "\n6. Title:"+ project[5].title+ "\nDescription: "+project[5].desc+ "\nArea: "+project[5].area+ "\nBudget: "+project[5].budget+ "\nTimeframe:"+project[5].timeframe+ 
+                "\n7. Title:"+ project[6].title+ "\nDescription: "+project[6].desc+ "\nArea: "+project[6].area+ "\nBudget: "+project[6].budget+ "\nTimeframe:"+project[6].timeframe+ 
+                "\n8. Title:"+ project[7].title+ "\nDescription: "+project[7].desc+ "\nArea: "+project[7].area+ "\nBudget: "+project[7].budget+ "\nTimeframe:"+project[7].timeframe+ 
+                "\n9. Title:"+ project[8].title+ "\nDescription: "+project[8].desc+ "\nArea: "+project[8].area+ "\nBudget: "+project[8].budget+ "\nTimeframe:"+project[8].timeframe+ 
+                "\n10. Title:"+ project[9].title+ "\nDescription: "+project[9].desc+ "\nArea: "+project[9].area+ "\nBudget: "+project[9].budget+ "\nTimeframe:"+project[9].timeframe+ 
+                "\n11. Title:"+ project[10].title+ "\nDescription: "+project[10].desc+ "\nArea: "+project[10].area+ "\nBudget: "+project[10].budget+ "\nTimeframe:"+project[10].timeframe+ 
+                "\n12. Title:"+ project[11].title+ "\nDescription: "+project[11].desc+ "\nArea: "+project[11].area+ "\nBudget: "+project[11].budget+ "\nTimeframe:"+project[11].timeframe+ 
+                "\n13. Title:"+ project[12].title+ "\nDescription: "+project[12].desc+ "\nArea: "+project[12].area+ "\nBudget: "+project[12].budget+ "\nTimeframe:"+project[12].timeframe+ 
+                "\n14. Title:"+ project[13].title+ "\nDescription: "+project[13].desc+ "\nArea: "+project[13].area+ "\nBudget: "+project[13].budget+ "\nTimeframe:"+project[13].timeframe+ 
+                "\n15. Title:"+ project[14].title+ "\nDescription: "+project[14].desc+ "\nArea: "+project[14].area+ "\nBudget: "+project[14].budget+ "\nTimeframe:"+project[14].timeframe+ 
+                "\n16. Title:"+ project[15].title+ "\nDescription: "+project[15].desc+ "\nArea: "+project[15].area+ "\nBudget: "+project[15].budget+ "\nTimeframe:"+project[15].timeframe+ 
+                "\n17. Title:"+ project[16].title+ "\nDescription: "+project[16].desc+ "\nArea: "+project[16].area+ "\nBudget: "+project[16].budget+ "\nTimeframe:"+project[16].timeframe+ 
+                "\n18. Title:"+ project[17].title+ "\nDescription: "+project[17].desc+ "\nArea: "+project[17].area+ "\nBudget: "+project[17].budget+ "\nTimeframe:"+project[17].timeframe+ 
+                "\n19. Title:"+ project[18].title+ "\nDescription: "+project[18].desc+ "\nArea: "+project[18].area+ "\nBudget: "+project[18].budget+ "\nTimeframe:"+project[18].timeframe+ 
+                "\n20. Title:"+ project[19].title+ "\nDescription: "+project[19].desc+ "\nArea: "+project[19].area+ "\nBudget: "+project[19].budget+ "\nTimeframe:"+project[19].timeframe;
+        
+        jTextArea1.setText(Queue);
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
